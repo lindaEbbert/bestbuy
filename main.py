@@ -58,11 +58,19 @@ def print_menu():
           "4. Quit")
 
 
+def get_users_choice():
+    while True:
+        user_input = input("Please choose a number: ")
+        if user_input in get_dispatcher().keys():
+            break
+    return user_input
+
+
 def start():
     """ Starts the program """
     while True:
         print_menu()
-        user_input = input("Please choose a number: ")
+        user_input = get_users_choice()
         dispatcher = get_dispatcher()
         dispatcher[user_input]()
 
