@@ -20,6 +20,36 @@ def total_amount_in_store():
     print(f"Total of {best_buy.get_total_quantity()} items in store.")
 
 
+def get_valid_product_input(max_valid_number):
+    while True:
+        user_input = input("Which product # do you want? ")
+        if user_input:
+            try:
+                user_input = int(user_input)
+            except ValueError:
+                print("Please enter a valid number or empty string to exit.")
+            else:
+                if user_input in range(1, max_valid_number+1):
+                    return user_input
+        elif user_input == "":
+            return user_input
+
+
+def get_valid_quantity_input(total_items):
+    while True:
+        user_input = input("What amount do you want? ")
+        if user_input:
+            try:
+                user_input = int(user_input)
+            except ValueError:
+                print("Please enter a valid number or empty string to exit.")
+            else:
+                if 0 <= user_input <= total_items:
+                    return user_input
+        elif user_input == "":
+            return user_input
+
+
 def make_order():
     """ Makes an order from the user in best buy store """
     print("------")
@@ -27,14 +57,16 @@ def make_order():
     print("------")
     print("When you want to finish order, enter empty text.")
     shopping_list = []
+    total_products = len(best_buy.products_in_store)
     while True:
-        product_number = input("Which product # do you want? ")
-        if not product_number:
+        product_ref = get_valid_product_input(total_products)
+        if not product_ref:
             break
-        product_quantity = input("What amount do you want? ")
+        available_product_quantity = best_buy.products_in_store[int(product_ref)-1].get_quantity()
+        product_quantity = get_valid_quantity_input(available_product_quantity)
         if not product_quantity:
             break
-        shopping_list.append((best_buy.products_in_store[int(product_number)-1], int(product_quantity)))
+        shopping_list.append((best_buy.products_in_store[int(product_ref)-1], int(product_quantity)))
     total_price = best_buy.order(shopping_list)
     print(f"Order made! Total payment: ${int(total_price)}")
 
