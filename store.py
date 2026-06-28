@@ -27,7 +27,6 @@ class Store:
     def order(self, shopping_list):
         total_price = 0
         for product, quantity in shopping_list:
-            product.set_quantity(product.get_quantity()-quantity)
             total_price += product.buy(quantity)
         return total_price
 
