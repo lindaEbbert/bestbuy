@@ -21,6 +21,10 @@ def total_amount_in_store():
 
 
 def get_valid_product_input(max_valid_number):
+    """ Gets a valid product reference number from the user for a specific product
+        (from 1 to total_items) or empty string.
+        :param max_valid_number: The total number of products in the product list.
+        :return: The valid user input (int or empty string)"""
     while True:
         user_input = input("Which product # do you want? ")
         if user_input:
@@ -36,6 +40,10 @@ def get_valid_product_input(max_valid_number):
 
 
 def get_valid_quantity_input(total_items):
+    """ Gets a valid quantity input from the user for a specific product.
+    Can be either an integer (from 1 to total_items in store) or empty string.
+    :param total_items: The total number of items available in the store.
+    :return: The valid user input (int or empty string)"""
     while True:
         user_input = input("What amount do you want? ")
         if user_input:
@@ -91,6 +99,7 @@ def print_menu():
 
 
 def get_users_choice():
+    """ Gets the user's choice for the menu """
     while True:
         user_input = input("Please choose a number: ")
         if user_input in get_dispatcher().keys():
