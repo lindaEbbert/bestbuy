@@ -26,8 +26,16 @@ class Product:
     def set_quantity(self, quantity):
         """ Sets the quantity of the product in stock
         :param quantity: The new quantity of the product """
+        if not isinstance(quantity, int):
+            try:
+                quantity = int(quantity)
+            except ValueError:
+                raise ValueError("Quantity must be an integer")
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
+
         self.quantity = quantity
-        if quantity <= 0:
+        if self.quantity <= 0:
             self.deactivate()
 
     def is_active(self):
