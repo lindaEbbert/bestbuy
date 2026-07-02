@@ -31,35 +31,34 @@ def get_valid_product_input(max_valid_number):
             try:
                 user_input = int(user_input)
             except ValueError:
-                print("Please enter a valid number or empty string to exit.")
+                print("Please enter a valid product number or empty string to exit.")
             else:
                 if user_input in range(1, max_valid_number+1):
                     return user_input
+                print("Please enter a valid product number or empty string to exit.")
         elif user_input == "":
             return user_input
 
 
-def get_valid_quantity_input(total_items):
+def get_valid_quantity_input(product_requested):
     """ Gets a valid quantity input from the user for a specific product.
-    Can be either an integer (from 1 to total_items in store) or empty string.
-    :param total_items: The total number of items available in the store.
+    Can be either an integer (from 1 to total items in store) or empty string.
+    :param product_requested: The product to get the quantity for.
     :return: The valid user input (int or empty string)"""
     while True:
-        user_input = input("What amount do you want? ")
-        if user_input:
-            try:
-                user_input = int(user_input)
-            except ValueError:
-                print("Please enter a valid number or empty string to exit.")
+        amount_requested = input("What amount do you want? ")
+        if amount_requested:
+            is_valid_quantity = product_requested.is_buyable(amount_requested)
+            if is_valid_quantity[0]:
+                return amount_requested
             else:
-                if 0 <= user_input <= total_items:
-                    return user_input
-        elif user_input == "":
-            return user_input
+                print(is_valid_quantity[1])
+        elif amount_requested == "":
+            return amount_requested
 
 
 def make_order():
-    """ Makes an order from the user in best buy store """
+    """ Makes an order from the user in best buy store and prints the total price """
     print("------")
     list_all_products()
     print("------")
@@ -67,14 +66,14 @@ def make_order():
     shopping_list = []
     total_products = len(best_buy.products_in_store)
     while True:
-        product_ref = get_valid_product_input(total_products)
-        if not product_ref:
+        product_index = get_valid_product_input(total_products)
+        if not product_index:
             break
-        available_product_quantity = best_buy.products_in_store[int(product_ref)-1].get_quantity()
-        product_quantity = get_valid_quantity_input(available_product_quantity)
-        if not product_quantity:
+        selected_product = best_buy.products_in_store[int(product_index)-1]
+        amount_requested = get_valid_quantity_input(selected_product)
+        if not amount_requested:
             break
-        shopping_list.append((best_buy.products_in_store[int(product_ref)-1], int(product_quantity)))
+        shopping_list.append((selected_product, int(amount_requested)))
     if not shopping_list:
         print("No products added to order.")
         return
