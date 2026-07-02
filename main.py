@@ -11,7 +11,7 @@ best_buy = store.Store(product_list)
 
 def list_all_products():
     """ Prints all products in the best buy store """
-    for number, product in enumerate(best_buy.products_in_store, 1):
+    for number, product in enumerate(best_buy.get_all_products(), 1):
         print(f"{number}. {product.name}, Price: {product.price}, Quantity: {product.quantity}")
 
 
