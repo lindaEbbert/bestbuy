@@ -75,8 +75,16 @@ def make_order():
         if not product_quantity:
             break
         shopping_list.append((best_buy.products_in_store[int(product_ref)-1], int(product_quantity)))
-    total_price = best_buy.order(shopping_list)
-    print(f"Order made! Total payment: ${int(total_price)}")
+    if not shopping_list:
+        print("No products added to order.")
+        return
+    try:
+        total_price = best_buy.order(shopping_list)
+    except Exception as e:
+        print(e)
+        return
+    else:
+        print(f"Order made! Total payment: ${int(total_price)}")
 
 
 def get_dispatcher():
