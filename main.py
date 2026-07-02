@@ -67,11 +67,11 @@ def make_order():
     total_products = len(best_buy.products_in_store)
     while True:
         product_index = get_valid_product_input(total_products)
-        if not product_index:
+        if product_index == "":
             break
         selected_product = best_buy.products_in_store[int(product_index)-1]
         amount_requested = get_valid_quantity_input(selected_product)
-        if not amount_requested:
+        if amount_requested == "":
             break
         shopping_list.append((selected_product, int(amount_requested)))
     if not shopping_list:
