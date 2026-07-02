@@ -17,8 +17,9 @@ dist/
 build/
 *.egg-info/
 
-# pytest
+# tests
 .pytest_cache/
+test_functions.py
 
 # docs
 docs
