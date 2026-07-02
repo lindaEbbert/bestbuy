@@ -52,7 +52,7 @@ class Product:
         if not self.active:
             return False, f"Product {self.name} is inactive"
         if quantity > self.quantity:
-            return False, f"Not enough items in stock to complete the order. Available: {self.quantity}"
+            return False, f"{self.name}: Not enough items in stock to complete the order. Available: {self.quantity}"
         return True, ""
 
     def buy(self, quantity):
