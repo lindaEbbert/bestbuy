@@ -13,11 +13,12 @@ def list_all_products():
     """ Prints all products in the best buy store """
     for number, product in enumerate(best_buy.get_all_products(), 1):
         print(f"{number}. {product.name}, Price: {product.price}, Quantity: {product.quantity}")
+    print("")
 
 
 def total_amount_in_store():
     """ Prints the total amount of items in the best buy store """
-    print(f"Total of {best_buy.get_total_quantity()} items in store.")
+    print(f"Total of {best_buy.get_total_quantity()} items in store.\n")
 
 
 def get_valid_product_input(max_valid_number):
@@ -64,12 +65,12 @@ def make_order():
     print("------")
     print("When you want to finish order, enter empty text.")
     shopping_list = []
-    total_products = len(best_buy.products_in_store)
+    total_products = len(best_buy.get_all_products())
     while True:
         product_index = get_valid_product_input(total_products)
         if product_index == "":
             break
-        selected_product = best_buy.products_in_store[int(product_index)-1]
+        selected_product = best_buy.get_all_products()[int(product_index)-1]
         product_is_new = selected_product not in [product for product, _ in shopping_list]
         if not product_is_new:
             print(f"You already have {selected_product.name} in your order.")
@@ -87,7 +88,7 @@ def make_order():
         print(e)
         return
     else:
-        print(f"Order made! Total payment: ${int(total_price)}")
+        print(f"Order made! Total payment: ${int(total_price)}\n")
 
 
 def get_dispatcher():
@@ -106,7 +107,7 @@ def print_menu():
           "1. List all products in store\n"
           "2. Show total amount in store\n"
           "3. Make an order\n"
-          "4. Quit")
+          "4. Quit\n")
 
 
 def get_users_choice():
