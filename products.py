@@ -61,7 +61,7 @@ class Product:
         :return: The total price of the product"""
         product_is_buyable = self.is_buyable(quantity)
         if product_is_buyable[0]:
-            self.quantity = self.quantity - quantity
+            self.set_quantity(self.quantity - quantity)
             return self.price * quantity
         else:
             raise ValueError(product_is_buyable[1])
