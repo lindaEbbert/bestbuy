@@ -38,9 +38,30 @@ class Product:
         """ Displays the product details """
         print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
 
+    def is_buyable(self, quantity):
+        """ Checks if the product is buyable for the specified quantity and the product is active
+        :param quantity: The quantity of the product to check
+        :return: True if the product is buyable, False otherwise, and an error message """
+        if not isinstance(quantity, int):
+            try:
+                quantity = int(quantity)
+            except ValueError:
+                return False, "Quantity must be an integer"
+        if quantity <= 0:
+            return False, "Quantity must be greater than zero"
+        if not self.active:
+            return False, f"Product {self.name} is inactive"
+        if quantity > self.quantity:
+            return False, f"Not enough items in stock to complete the order. Available: {self.quantity}"
+        return True, ""
+
     def buy(self, quantity):
         """ Buys the product for the specified quantity (adjusts the quantity)
         :param quantity: The quantity of the product to buy
         :return: The total price of the product"""
-        self.quantity = self.quantity - quantity
-        return self.price * quantity
+        product_is_buyable = self.is_buyable(quantity)
+        if product_is_buyable[0]:
+            self.quantity = self.quantity - quantity
+            return self.price * quantity
+        else:
+            raise ValueError(product_is_buyable[1])
