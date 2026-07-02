@@ -70,10 +70,14 @@ def make_order():
         if product_index == "":
             break
         selected_product = best_buy.products_in_store[int(product_index)-1]
-        amount_requested = get_valid_quantity_input(selected_product)
-        if amount_requested == "":
-            break
-        shopping_list.append((selected_product, int(amount_requested)))
+        product_is_new = selected_product not in [product for product, _ in shopping_list]
+        if not product_is_new:
+            print(f"You already have {selected_product.name} in your order.")
+        else:
+            amount_requested = get_valid_quantity_input(selected_product)
+            if amount_requested == "":
+                break
+            shopping_list.append((selected_product, int(amount_requested)))
     if not shopping_list:
         print("No products added to order.")
         return
